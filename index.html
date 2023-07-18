@@ -9,7 +9,7 @@
         if (window.localStorage) {
           localStorage[name] = value + ""
         } else {
-          //setCookie(name, value, 1000*60*60*24*365*10);
+          setCookie(name, value, 1000*60*60*24*365*10);
         }
       }
       function getstorage(name) {
@@ -17,17 +17,15 @@
         if (window.localStorage) {
           s = localStorage[name]
         } else {
-          //s=getCookie(name);
+          s=getCookie(name);
         }
         return s
       }
     </script>
   </head>
   <body>
-    <div id="dfile1" style="display: inline"></div>
     <input type="file" id="fileload1" name="files[]" style="width:230px">
     <div id="codearea" style="margin-bottom: 15px; margin-top: 5px"></div>
-    <textarea id="script1" style="display: none"></textarea>
     <script src="src/load.js" type="text/javascript"></script>
   </body>
 </html>

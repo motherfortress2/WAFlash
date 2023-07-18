@@ -1,10 +1,10 @@
-var script2
+let script2
 
 function handleFileSelect(files) {
   if (!files || files.length == 0 || !files[0]) return
-  var reader = new FileReader()
+  const reader = new FileReader()
   reader.onload = e => {
-    var blob = new Blob([e.target.result])
+    const blob = new Blob([e.target.result])
     blobUrl = window.URL.createObjectURL(blob)
     proc_loadgame(blobUrl)
   }
@@ -15,7 +15,7 @@ function handleFileSelect(files) {
 }
 
 function init2() {
-  var fileloader = _getid("fileload1")
+  const fileloader = _getid("fileload1")
   fileloader.setAttribute("accept", ".swf")
   fileloader.onchange = e => handleFileSelect(e.target.files)
 }
@@ -37,7 +37,7 @@ async function proc_loadgame(url) {
   gbloburl = url
 
   emulator = _getid("emulator2")
-  var emulatorIframe = _getfrmdoc(emulator) 
+  const emulatorIframe = _getfrmdoc(emulator) 
   
   emulator.onload = function () {
     emulator.onload = null

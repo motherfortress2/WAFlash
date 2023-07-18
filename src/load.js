@@ -46,24 +46,18 @@ function proc_loadgame(url) {
     return
   }
 
-  var w = 1000
-  var h = 900
   gbloburl = url
 
-  var c = _getid("emulator2")
-  if (!c) return
-  c.width = w
-  c.height = h
-  var ifrm = _getfrmdoc(c)
-  if (ifrm) {
-    c.onload = function () {
-      c.onload = null
-      ifrm.document.open()
-      ifrm.document.write(script2)
-      ifrm.document.close()
-    }
-    ifrm.location.replace("about:blank")
+  var emulator = _getid("emulator2")
+  var emulatorIframe = _getfrmdoc(emulator) 
+  
+  emulator.onload = function () {
+    emulator.onload = null
+    emulatorIframe.document.open()
+    emulatorIframe.document.write(script2)
+    emulatorIframe.document.close()
   }
+  emulatorIframe.location.replace("about:blank")
 }
 
 init2()

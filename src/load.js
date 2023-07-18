@@ -1,49 +1,17 @@
-var gfiles
-var gmaxsize = 60
 function handleFileSelect(files) {
-  if (!window.FileReader || !window.XMLHttpRequest) {
-    alert("This browser does not support.")
-    return
+  if (!files || files.length == 0 || !files[0]) return
+  var reader = new FileReader()
+  reader.onload = e => {
+    var blob = new Blob([e.target.result])
+    blobUrl = window.URL.createObjectURL(blob)
+    proc_loadgame(blobUrl)
   }
-
-  if (files) gfiles = files
-  if (!gfiles || gfiles.length == 0) return
-
-  var tot = 0
-  for (var i = 0, f; (f = gfiles[i]); i++) {
-    var usearray = false
-    var f = gfiles[i]
-    if (f.size > gmaxsize * 1024 * 1024) {
-      alert(
-        "The file size is too large to view. (around " +
-          gmaxsize +
-          " MB limit)"
-      )
-      return
-    }
-    var reader = new FileReader()
-    reader.onload = function (e) {
-      var blob = new Blob([e.target.result])
-      gd_bloburl = window.URL.createObjectURL(blob)
-      var resp = {}
-      resp.id = "(Local) " + this.name
-      resp.title = resp.id
-      proc_loadgame(gd_bloburl, resp)
-    }
-    reader.onerror = function () {
-      alert("Read Error: " + this.name)
-    }
-    reader.id = i
-    reader.name = f.name
-    if (!reader.readAsArrayBuffer) {
-      alert("This browser does not support.")
-      return
-    } else {
-      reader.readAsArrayBuffer(f)
-    }
-    break
+  reader.onerror = function () {
+    alert("Cannot read file: " + this.name)
   }
+  reader.readAsArrayBuffer(files[0])
 }
+
 
 function init2() {
   _getid("fileload1").onchange = function (e) {
@@ -70,7 +38,7 @@ function proc_loadscript(src, callback_ok, callback_err) {
     })
 }
 
-function proc_loadgame(url, resp, ishistory) {
+function proc_loadgame(url) {
   if (!window.WebAssembly) {
     alert('Flash Emulator not supported. Please upgrade your browser.')
     return
@@ -79,7 +47,7 @@ function proc_loadgame(url, resp, ishistory) {
   if (!script2) {
     proc_loadscript(
       "emulator/emulator.php",
-      () => proc_loadgame(url, resp, ishistory),
+      () => proc_loadgame(url),
       () => alert("Error. Can not download a emulator scripts.")
     )
     return
@@ -87,15 +55,6 @@ function proc_loadgame(url, resp, ishistory) {
 
   var w = 1000
   var h = 900
-  var a = get_data()
-  for (var i = 0; i <= a.length - 1; i++) {
-    if (a[i].id == resp.id) {
-      w = a[i].width
-      h = a[i].height
-      break
-    }
-  }
-  
   gbloburl = url
 
   var c = _getid("emulator2")
@@ -116,21 +75,6 @@ function proc_loadgame(url, resp, ishistory) {
     }
     ifrm.location.replace("about:blank")
   }
-}
-
-var okflash = null
-
-function get_data() {
-  var s = getstorage("drive_data")
-  if (!s) s = "[]"
-  var a = []
-  try {
-    a = JSON.parse(s)
-  } catch (err) {
-    a = []
-  }
-  if (!a) a = []
-  return a
 }
 
 init2()

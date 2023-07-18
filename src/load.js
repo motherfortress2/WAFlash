@@ -1,4 +1,9 @@
 let script2
+const emulator = _getid("emulator2")
+
+const fileloader = _getid("fileload1")
+fileloader.setAttribute("accept", ".swf")
+fileloader.onchange = e => handleFileSelect(e.target.files)
 
 function handleFileSelect(files) {
   if (!files || files.length == 0 || !files[0]) return
@@ -12,12 +17,6 @@ function handleFileSelect(files) {
     alert("Cannot read file: " + this.name)
   }
   reader.readAsArrayBuffer(files[0])
-}
-
-function init2() {
-  const fileloader = _getid("fileload1")
-  fileloader.setAttribute("accept", ".swf")
-  fileloader.onchange = e => handleFileSelect(e.target.files)
 }
 
 function _getid(id){
@@ -42,11 +41,10 @@ async function proc_loadgame(url) {
 
   if (!script2) await proc_loadscript("emulator/emulator.php")
 
+  // Pass url into Flash emulator IFrame
   gbloburl = url
 
-  emulator = _getid("emulator2")
   const emulatorIframe = _getfrmdoc(emulator) 
-  
   emulator.onload = function () {
     emulator.onload = null
     emulatorIframe.document.open()

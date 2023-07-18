@@ -48,4 +48,4 @@ async function proc_loadgame(url) {
   emulatorIframe.location.replace("about:blank")
 }
 
-init2()
+proc_loadgame("../swf/flyguy.swf")

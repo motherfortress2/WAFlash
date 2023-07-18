@@ -1,0 +1,22 @@
+body, table, td {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#context-menu {
+  border: 1px solid gray;
+  box-shadow: 0px 5px 10px -5px black;
+  background: white;
+  position: absolute;
+  text-align: left;
+  list-style: none;
+  padding: 0;
+}
+
+#context-menu .menu_item {
+  padding: 5px 10px;
+}
+
+#context-menu .active:hover {
+  background: lightgray;
+}

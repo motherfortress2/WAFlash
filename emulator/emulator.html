@@ -1,30 +1,8 @@
 ﻿<html>
+	<head>
+		<script src="./emulator/emulator.js" type="module"></script>
+	</head>
 	<body>
-		<style>
-			body, table, td {
-				font-size: 1rem;
-				font-family: Arial, Helvetica, sans-serif;
-			}
-
-			#context-menu {
-				border: 1px solid gray;
-				box-shadow: 0px 5px 10px -5px black;
-				background: white;
-				position: absolute;
-				text-align: left;
-				list-style: none;
-				padding: 0;
-			}
-
-			#context-menu .menu_item {
-				padding: 5px 10px;
-			}
-
-			#context-menu .active:hover {
-				background: lightgray;
-			}
-		
-		</style>
 		<canvas id="canvas" tabindex="1" style="width:100%;height:100%;cursor: default;outline: none;"></canvas>
 		<div id="waflashStatus" style="display:none;"></div>
 		<ul id="context-menu" style="display:none">
@@ -36,6 +14,6 @@
 				return newDate.getTime()
 			}
 		</script>
-		<script src="./emulator/emulator.js" type="module"></script>
+		<link rel="stylesheet" href="./emulator/emulator.css">
 	</body>
 </html>

@@ -48,56 +48,17 @@ function handleFileSelect(files) {
 function init2() {
   _getid("fileload1").onchange = function (e) {
     if (!e || !e.target) {
-      alert("This browser does not support.")
+      alert("Cannot load file.")
       return
     }
     handleFileSelect(e.target.files)
   }
-  var holder = document
-  holder.ondragover = function (e) {
-    try {
-      var ua = navigator.userAgent
-      if (ua && ua.indexOf("Chrome") >= 0) {
-        if (e.originalEvent) e = e.originalEvent
-        if (e.dataTransfer) {
-          var b = e.dataTransfer.effectAllowed
-          e.dataTransfer.dropEffect =
-            "move" === b || "linkMove" === b ? "move" : "copy"
-        }
-      }
-    } catch (err) {}
-    return false
-  }
-  holder.ondragend = function () {
-    return false
-  }
-  holder.ondrop = function (e) {
-    e.preventDefault()
-    handleFileSelect(e.dataTransfer.files)
-    return false
-  }
-  if (
-    navigator.userAgent &&
-    navigator.userAgent.toLowerCase().indexOf("windows") >= 0
-  ) {
-    var a = _getid("fileload1")
-    a.setAttribute("accept", ".swf")
-  }
-  var s = 100
-  if (!isNaN(s)) {
-    if (s < 0) s = 0
-    if (s > 100) s = 100
-  }
-  window.onbeforeunload = function () {
-    for (var i = 0; i < g_lastdata.length; i++) {
-      if (g_lastdata[i].url)
-        window.URL.revokeObjectURL(g_lastdata[i].url)
-    }
-  }
+  document.ondrop = e => handleFileSelect(e.dataTransfer.files)
+  var a = _getid("fileload1")
+  a.setAttribute("accept", ".swf")
 }
 
-var g_lastdata2, script2, gbloburl
-var g_lastdata = []
+var script2, gbloburl
 function proc_loadscript(src, callback_ok, callback_err) {
   fetch(src)
     .then(async(response) => {

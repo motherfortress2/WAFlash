@@ -1,4 +1,4 @@
-import Module from 'https://clubpenguinadvanced.github.io/waflash-demo/emulator2/waflash_latest/waflash.js?t=1';
+import FlashModule from './flash.js'
 const WAFLASH_BASE_URL = "https://clubpenguinadvanced.github.io/waflash-demo/emulator2/waflash_latest/";
 let loaded = false;
 
@@ -133,7 +133,7 @@ function proc_fullscreen2() {
 }
 
 // Load emulator
-Module(waflash).then(o => {
+FlashModule(waflash).then(o => {
     loaded = true;
     _getid('menu1').onclick = function() {
       proc_fullscreen();

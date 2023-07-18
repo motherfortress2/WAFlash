@@ -39,7 +39,7 @@ async function proc_loadgame(url) {
     return
   }
 
-  if (!script2) await proc_loadscript("emulator/emulator.php")
+  if (!script2) await proc_loadscript("emulator/emulator.html")
 
   // Pass url into Flash emulator IFrame
   gbloburl = url

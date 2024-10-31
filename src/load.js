@@ -55,7 +55,8 @@ async function proc_loadgame(url) {
 }
 
 try {
-	proc_loadgame("../swf/flyguy.swf")
-} catch {
 	proc_loadgame("/WAFlash/swf/flyguy.swf")
+} catch {
+	proc_loadgame("../swf/flyguy.swf")
+
 }

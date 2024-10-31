@@ -54,4 +54,8 @@ async function proc_loadgame(url) {
   emulatorIframe.location.replace("about:blank")
 }
 
-proc_loadgame("../swf/flyguy.swf")
+try {
+	proc_loadgame("../swf/flyguy.swf")
+} catch {
+	proc_loadgame("/WAFlash/swf/flyguy.swf")
+}
